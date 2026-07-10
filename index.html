@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Wedding Of Yani & Indah</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Cinzel',serif;
+background:#1a0008;
+color:white;
+overflow:hidden;
+scroll-behavior:smooth;
+}
+
+/* COVER */
+.cover{
+height:100vh;
+background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.95)),url("cover.jpg") center/cover;
+display:flex;justify-content:center;align-items:center;text-align:center;
+}
+.box{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+padding:40px;border-radius:25px;
+border:1px solid rgba(255,215,0,0.4);
+}
+h1{
+font-family:'Pinyon Script',cursive;
+font-size:50px;color:#FFD700;
+}
+h2{margin-top:10px;}
+button{
+margin-top:20px;padding:12px 30px;border:none;
+border-radius:30px;
+background:linear-gradient(45deg,#800020,#FFD700);
+color:white;cursor:pointer;
+}
+
+/* SECTION */
+section{padding:60px 20px;text-align:center;}
+.title{font-size:30px;color:#FFD700;margin-bottom:20px;}
+
+.card{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,215,0,0.3);
+border-radius:20px;
+padding:20px;margin:15px auto;max-width:450px;
+}
+
+/* MAWAR */
+.petal-container{position:fixed;top:0;left:0;width:100%;height:100%;}
+.petal{
+position:absolute;width:25px;height:25px;
+background:url("https://i.ibb.co/7QpKsCX/rose-petal.png");
+background-size:cover;animation:fall linear infinite;
+}
+@keyframes fall{
+0%{transform:translateY(-50px);}
+100%{transform:translateY(100vh) rotate(360deg);}
+}
+
+/* INPUT */
+input,textarea,select{
+width:90%;padding:10px;margin:10px;
+border-radius:10px;border:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- COVER -->
+<div class="cover">
+<div class="box">
+<h3 id="to"></h3>
+<h1>The Wedding Of</h1>
+<h2>Akhmad Yani Ma'arif</h2>
+<h2>&</h2>
+<h2>Indah Khumairo' Nurul Istiqomah</h2>
+<button onclick="buka()">Buka Undangan</button>
+</div>
+</div>
+
+<!-- MEMPELAI -->
+<section>
+<div class="title">Mempelai</div>
+
+<div class="card">
+<p><b>Akhmad Yani Ma'arif</b></p>
+<p>Putra dari Bapak Yono & Ibu Marpukatin</p>
+</div>
+
+<div class="card">
+<p><b>Indah Khumairo' Nurul Istiqomah</b></p>
+<p>Putri dari Bapak Khoirul Huda & Ibu Qona'ah</p>
+</div>
+
+<p>Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Anda untuk hadir dan memberikan doa restu.</p>
+</section>
+
+<!-- ACARA -->
+<section>
+<div class="title">Acara</div>
+
+<div class="card">
+<h3>Akad Nikah</h3>
+<p>Kamis, 24 September 2026</p>
+<p>09.00 WIB</p>
+<p>Desa Setro Hadi RT 05 RW 01<br>Kec. Duduk Sampeyan, Gresik</p>
+<a href="https://maps.app.goo.gl/1pwW66WZmwk6tejq9?g_st=ic" target="_blank">📍 Lihat Lokasi</a>
+</div>
+
+<div class="card">
+<h3>Resepsi</h3>
+<p>Rabu, 30 September 2026</p>
+<p>10.00 WIB</p>
+<p>Desa Bendungan RT 04 RW 03<br>Kec. Kudu, Jombang</p>
+<a href="https://maps.app.goo.gl/YpWf49gLrGCjyXUs9?g_st=ic" target="_blank">📍 Lihat Lokasi</a>
+</div>
+
+</section>
+
+<!-- AMPLOP -->
+<section>
+<div class="title">Amplop Digital</div>
+<div class="card">
+<p>Bank BRI</p>
+<p id="rekening"><b>002601169483507</b></p>
+<p>a.n Indah Khumairo Nurul</p>
+<button onclick="copyRek()">Salin Rekening</button>
+</div>
+</section>
+
+<!-- RSVP -->
+<section>
+<div class="title">RSVP</div>
+
+<div class="card">
+<input type="text" id="nama" placeholder="Nama Anda">
+
+<select id="status">
+<option value="">Pilih Kehadiran</option>
+<option value="Hadir">Hadir</option>
+<option value="Tidak Hadir">Tidak Hadir</option>
+</select>
+
+<input type="number" id="jumlah" value="1">
+
+<textarea id="pesan" placeholder="Ucapan"></textarea>
+
+<button onclick="kirim()">Kirim ke WhatsApp</button>
+</div>
+</section>
+
+<!-- AUDIO -->
+<audio id="musik" loop>
+<source src="musik.mp3" type="audio/mpeg">
+</audio>
+
+<div class="petal-container"></div>
+
+<script>
+function buka(){
+document.body.style.overflow="auto";
+document.getElementById("musik").play();
+window.scrollTo({top:window.innerHeight,behavior:'smooth'});
+}
+
+/* COPY REKENING */
+function copyRek(){
+navigator.clipboard.writeText("002601169483507");
+alert("Rekening berhasil disalin 💸");
+}
+
+/* AUTO NAMA TAMU */
+const params=new URLSearchParams(window.location.search);
+if(params.get("to")){
+document.getElementById("to").innerText="Kepada Yth: "+params.get("to");
+document.getElementById("nama").value=params.get("to");
+}
+
+/* RSVP */
+function kirim(){
+let nama=document.getElementById("nama").value;
+let status=document.getElementById("status").value;
+let jumlah=document.getElementById("jumlah").value || "-";
+let pesan=document.getElementById("pesan").value || "-";
+
+if(nama==""||status==""){
+alert("Nama & kehadiran wajib diisi 🙏");
+return;
+}
+
+let url="https://wa.me/6285815087624?text="+
+"Konfirmasi Kehadiran%0A%0A"+
+"Nama: "+nama+"%0A"+
+"Kehadiran: "+status+"%0A"+
+"Jumlah Tamu: "+jumlah+"%0A"+
+"Ucapan: "+pesan;
+
+window.open(url,"_blank");
+}
+
+/* MAWAR */
+setInterval(()=>{
+let p=document.createElement("div");
+p.className="petal";
+p.style.left=Math.random()*100+"vw";
+p.style.animationDuration=(Math.random()*5+5)+"s";
+document.body.appendChild(p);
+setTimeout(()=>p.remove(),10000);
+},250);
+</script>
+
+</body>
+</html>
